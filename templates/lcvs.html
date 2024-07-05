@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCV Details</title>
+    <style>
+        body {
+            background-color: limegreen;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='bhagyanagar_gas_limited_logo.png') }}" alt="Bhagyanagar Gas Limited Logo" class="logo" width="100">
+        <h1>LCV Details</h1>
+        <form action="{{ url_for('lcvs') }}" method="post">
+            <div>
+                <label for="num_lcvs">Number of LCVs:</label>
+                <input type="number" id="num_lcvs" name="num_lcvs" min="1" required>
+            </div>
+            <div id="lcv_details">
+                <!-- LCV details will be appended here -->
+            </div>
+            <div style="margin-top: 15px;">
+                <button type="button" onclick="addLCVFields()">Add LCV Details</button>
+                <button type="submit">Submit LCVs</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function addLCVFields() {
+            const numLCVs = document.getElementById('num_lcvs').value;
+            const lcvDetails = document.getElementById('lcv_details');
+            lcvDetails.innerHTML = '';
+
+            for (let i = 0; i < numLCVs; i++) {
+                lcvDetails.innerHTML += `
+                    <div>
+                        <h3>LCV ${i + 1}</h3>
+                        <label for="lcv_id_${i}">LCV ID:</label>
+                        <input type="text" id="lcv_id_${i}" name="lcv_id_${i}" required><br>
+                        <label for="lcv_coords_${i}">Coordinates (lat,lng):</label>
+                        <input type="text" id="lcv_coords_${i}" name="lcv_coords_${i}" placeholder="latitude,longitude" required><br>
+                        <label for="lcv_capacity_${i}">Capacity (kg):</label>
+                        <input type="number" id="lcv_capacity_${i}" name="lcv_capacity_${i}" min="1" required><br>
+                    </div>
+                    <br>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

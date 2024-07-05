@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indent Requests</title>
+    <style>
+        body {
+            background-color: limegreen;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='bhagyanagar_gas_limited_logo.png') }}" alt="Bhagyanagar Gas Limited Logo" class="logo" width="100">
+        <h1>Indent Requests</h1>
+        <form action="{{ url_for('index') }}" method="post">
+            {% for station in daughter_stations %}
+                <div style="margin-bottom: 15px;">
+                    <h3>{{ station['name'] }}</h3>
+                    <p>Coordinates: {{ station['coords'][0] }}, {{ station['coords'][1] }}</p>
+                    <label for="indent_{{ loop.index }}">Indent Request:</label>
+                    <input type="number" id="indent_{{ loop.index }}" name="indent_{{ loop.index }}" min="0" required>
+                </div>
+            {% endfor %}
+            <div style="margin-top: 15px;">
+                <label for="lcv_count">Number of LCVs:</label>
+                <input type="number" id="lcv_count" name="lcv_count" min="1" required>
+            </div>
+            <div id="lcvs" style="margin-top: 15px;">
+                <label for="lcv_1_id">LCV 1 ID:</label>
+                <input type="number" id="lcv_1_id" name="lcv_id_1" required>
+                <label for="lcv_1_coords">LCV 1 Coordinates (lat, lon):</label>
+                <input type="text" id="lcv_1_coords" name="lcv_coords_1" placeholder="lat,lon" required>
+            </div>
+            <button type="button" onclick="addLCV()">Add Another LCV</button>
+            <div style="margin-top: 15px;">
+                <button type="submit">Submit Indents</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        let lcvCount = 1;
+
+        function addLCV() {
+            lcvCount++;
+            const lcvsDiv = document.getElementById('lcvs');
+            const newLCVDiv = document.createElement('div');
+            newLCVDiv.innerHTML = `
+                <label for="lcv_${lcvCount}_id">LCV ${lcvCount} ID:</label>
+                <input type="number" id="lcv_${lcvCount}_id" name="lcv_id_${lcvCount}" required>
+                <label for="lcv_${lcvCount}_coords">LCV ${lcvCount} Coordinates (lat, lon):</label>
+                <input type="text" id="lcv_${lcvCount}_coords" name="lcv_coords_${lcvCount}" placeholder="lat,lon" required>
+            `;
+            lcvsDiv.appendChild(newLCVDiv);
+        }
+    </script>
+</body>
+</html>

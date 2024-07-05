@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCV Allocation Results</title>
+    <style>
+        body {
+            background-color: limegreen;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='bhagyanagar_gas_limited_logo.png') }}" alt="Bhagyanagar Gas Limited Logo" class="logo" width="100">
+        <h1>LCV Allocation Results</h1>
+        <ul>
+            {% for allocation in results %}
+                <li>
+                    LCV {{ allocation['lcv_id'] }}: {{ allocation['filling_station'] }} -> {{ allocation['daughter_station'] }}
+                    (<a href="{{ url_for('static', filename=allocation['route_map']) }}" target="_blank">View Route</a>)
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('index') }}">Go Back</a>
+    </div>
+</body>
+</html>
