@@ -1,4 +1,4 @@
-# BGLappTrials
+# Abstract
  
 The algorithm, in its current state, focuses on provide the most optimum route to effectively cater to indent requirements of daughter stations. It prioritises stations with higher average sales. 
 The user is required to input the indent quantity filed by daughter stations, followed by available LCV IDs and their coordinates. The code cross-checks with the LCV database to determine their capacities.
