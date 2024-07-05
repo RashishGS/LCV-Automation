@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 FLask
 flask_sqlalchemy
 folium
-=======
-FLask
-flask_sqlalchemy
-folium
->>>>>>> bdec37311f9f81aaeb92ac00193498adc0bb3f57
+
